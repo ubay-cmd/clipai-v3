@@ -1,4 +1,5 @@
 app.include_router(transcribe_router)
+from .render import router as render_router
 from .transcribe import router as transcribe_router
 from .status import router as status_router
 from .highlight import router as highlight_router
@@ -10,7 +11,7 @@ app = FastAPI(
 )
 app.include_router(status_router)
 app.include_router(upload_router)
-
+app.include_router(render_router)
 @app.get("/")
 def root():
     return {
