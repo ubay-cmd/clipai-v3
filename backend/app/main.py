@@ -1,3 +1,4 @@
+from .transcribe import router as transcribe_router
 from .status import router as status_router
 from .highlight import router as highlight_router
 from fastapi import FastAPI
