@@ -1,0 +1,26 @@
+from fastapi import APIRouter, UploadFile, File
+import os
+
+router = APIRouter()
+
+UPLOAD_DIR = "uploads"
+
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+@router.post("/upload")
+async def upload_video(
+    file: UploadFile = File(...)
+):
+    filepath = os.path.join(
+        UPLOAD_DIR,
+        file.filename
+    )
+
+    with open(filepath, "wb") as f:
+        content = await file.read()
+        f.write(content)
+
+    return {
+        "filename": file.filename,
+        "status": "uploaded"
+    }
