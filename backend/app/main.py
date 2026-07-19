@@ -1,3 +1,4 @@
+from .highlight import router as highlight_router
 from fastapi import FastAPI
 from .upload import router as upload_router
 
@@ -12,3 +13,4 @@ def root():
     return {
         "status": "online"
     }
+app.include_router(highlight_router)
