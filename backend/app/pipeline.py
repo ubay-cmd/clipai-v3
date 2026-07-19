@@ -1,22 +1,8 @@
-from .database import projects
+from fastapi import APIRouter
+from .pipeline import run_pipeline
 
-def run_pipeline(project_id: str):
+router = APIRouter()
 
-    project = projects.get(project_id)
-
-    if not project:
-        return {
-            "error": "project not found"
-        }
-
-    return {
-        "project_id": project_id,
-        "steps": [
-            "uploaded",
-            "transcribed",
-            "highlighted",
-            "subtitled",
-            "rendered"
-        ],
-        "status": "completed"
-    }
+@router.post("/pipeline/{project_id}")
+def start_pipeline(project_id: str):
+    return run_pipeline(project_id)
